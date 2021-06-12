@@ -1,0 +1,63 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="isLoading"
+  class="sticky"
+></mat-progress-bar>
+<div class="login-card">
+  <form [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="login-card-body">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Username/Email</mat-label>
+            <input
+              matInput
+              placeholder="Username/Email"
+              type="text"
+              formControlName="userNameOrEmail"
+              required
+            />
+            <mat-error *ngIf="formData.get('userNameOrEmail')?.invalid"
+              >Please enter username or email
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              type="password"
+              formControlName="password"
+              required
+            />
+            <mat-error *ngIf="formData.get('password')?.invalid"
+              >Please enter password
+            </mat-error>
+            <mat-error *ngIf="formData.get('password')?.errors?.minlength"
+              >Password minimum 8 characters
+            </mat-error>
+          </mat-form-field>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="login-card-footer">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="isDisabled || formData.invalid"
+        >
+          Login
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <div class="register-link">
+    Create an account
+    <a mat-button color="accent" routerLink="/register">Register</a>
+  </div>
+</div>

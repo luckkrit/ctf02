@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="sticky mat-elevation-z8">
+  <a mat-flat-button color="primary" routerLink="/">{{ title }}</a>
+  <ng-container *ngIf="isLogin">
+    <a mat-flat-button color="primary" routerLink="/dashboard">Boards</a>
+    <span class="spacer"></span>
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <!--      <mat-icon>account_circle</mat-icon>-->
+      <!--      <span class="username">{{username}}</span>-->
+      <app-avatar [username]="username" [size]="30"></app-avatar>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button routerLink="/logout" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+  <ng-container *ngIf="!isLogin">
+    <span class="spacer"></span>
+    <button routerLink="/login" mat-button aria-label="Login icon">
+      <mat-icon>login</mat-icon>
+      <span class="login-label">Login</span>
+    </button>
+  </ng-container>
+</mat-toolbar>
+<div class="content">
+  <ng-content></ng-content>
+</div>

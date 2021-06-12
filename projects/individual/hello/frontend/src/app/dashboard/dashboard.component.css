@@ -1,0 +1,35 @@
+.board-preview,
+.new-board-preview {
+  width: 150px;
+  margin: 5px;
+  height: 50px;
+  background-color: lightslategrey;
+  color: whitesmoke;
+}
+
+.new-board-preview {
+  border-style: dashed;
+  border-color: lightslategrey;
+  border-width: 3px;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px;
+}
+
+.new-board-preview:hover {
+  background-color: lightslategrey;
+  color: whitesmoke;
+}
+
+.board-preview:hover {
+  background-color: lightgray;
+  color: whitesmoke;
+}
+
+.board-groups {
+  display: flex;
+  flex-wrap: wrap;
+}

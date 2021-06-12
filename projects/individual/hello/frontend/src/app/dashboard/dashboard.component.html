@@ -1,0 +1,44 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="isLoading"
+  class="sticky"
+></mat-progress-bar>
+<app-sub-menu>
+  <button mat-flat-button color="primary" (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+    <span>New Board</span>
+  </button>
+</app-sub-menu>
+
+<app-container>
+  <h2>Boards</h2>
+  <div class="board-groups">
+    <mat-card
+      *ngFor="let board of boards$ | async"
+      class="board-preview"
+      routerLink="/board/{{ board.id }}"
+    >
+      {{ board.title }}
+    </mat-card>
+    <div class="new-board-preview" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+      <span>New Board</span>
+    </div>
+  </div>
+</app-container>
+<ng-template #addEditDialog let-data>
+  <h1 mat-dialog-title>{{ data.dialogTitle }}</h1>
+  <div mat-dialog-content>
+    <p>Please enter {{ data.type }} name.</p>
+    <mat-form-field>
+      <mat-label>{{ data.type }} Name</mat-label>
+      <input cdkFocusInitial matInput [(ngModel)]="data.title"/>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onAddEditCancelClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.title" cdkFocusInitial>
+      Ok
+    </button>
+  </div>
+</ng-template>

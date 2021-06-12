@@ -1,0 +1,216 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="isLoading"
+  class="sticky"
+></mat-progress-bar>
+<app-sub-menu>
+  <span class="board-title">
+    {{ board?.title }}
+  </span>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="openTodoDialog('New Todo', null)"
+  >
+    <mat-icon>add</mat-icon>
+    <span>New Todo</span>
+  </button>
+  <span class="spacer"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Board Menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openBoardDialog('Change Board Title')">
+      <mat-icon>title</mat-icon>
+      <span>Change Board Title</span>
+    </button>
+    <button
+      mat-menu-item
+      (click)="openDeleteBoardDialog('Delete Board : ' + board?.title)"
+    >
+      <mat-icon>delete</mat-icon>
+      <span>Delete Board</span>
+    </button>
+  </mat-menu>
+</app-sub-menu>
+<app-container>
+  <h2>Todos</h2>
+  <div
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    class="todo-groups"
+    [cdkDropListData]="board.todos"
+    (cdkDropListDropped)="dropTodo($event)"
+  >
+    <mat-card
+      (mouseenter)="mouseEnter($event)"
+      (mouseleave)="mouseLeave($event)"
+      *ngFor="let todo of board.todos"
+      class="todo-preview"
+      cdkDrag
+      [cdkDragData]="todo"
+    >
+      <mat-card
+        class="todo-preview todo-placeholder"
+        *cdkDragPlaceholder
+      ></mat-card>
+      <div class="flex-row">
+        <div class="todo-title">
+          {{ todo.title }}
+        </div>
+        <span class="spacer"></span>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu2"
+          aria-label="Board Menu"
+          class="float-right"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu2="matMenu">
+          <button
+            mat-menu-item
+            (click)="openTodoDialog('Change Todo Title', todo)"
+          >
+            <mat-icon>title</mat-icon>
+            <span>Change Todo Title</span>
+          </button>
+          <button
+            mat-menu-item
+            (click)="openDeleteTodoDialog('Delete Todo : ' + todo.title, todo)"
+          >
+            <mat-icon>delete</mat-icon>
+            <span>Delete Todo</span>
+          </button>
+          <button
+            mat-menu-item
+            (click)="openCardDialog('New Card', todo, null)"
+          >
+            <mat-icon>post_add</mat-icon>
+            <span *ngIf="todo.cards.length === 0">Add Card</span>
+            <span *ngIf="todo.cards.length > 0">Add another card</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div
+        id="todo-{{ todo.id }}"
+        cdkDropList
+        class="cards"
+        [style.minHeight]="minHeight"
+        (cdkDropListDropped)="dropCard($event)"
+        [cdkDropListData]="todo.cards"
+        [cdkDropListConnectedTo]="transferCardToAnotherTodo"
+      >
+        <mat-card
+          class="card-preview"
+          *ngFor="let card of todo.cards"
+          cdkDrag
+          [cdkDragData]="card"
+        >
+          <mat-card
+            class="card-preview card-placeholder"
+            *cdkDragPlaceholder
+          ></mat-card>
+          <div class="flex-row">
+            <div class="card-title">
+              {{ card.title }}
+            </div>
+            <span class="spacer"></span>
+            <button
+              mat-icon-button
+              [matMenuTriggerFor]="menu3"
+              aria-label="Board Menu"
+              class="float-right"
+            >
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu3="matMenu">
+              <button
+                mat-menu-item
+                (click)="openCardDialog('Change Card Title', todo, card)"
+              >
+                <mat-icon>title</mat-icon>
+                <span>Change Card Title</span>
+              </button>
+              <button
+                mat-menu-item
+                (click)="
+                  openDeleteCardDialog(
+                    'Delete card : ' + card.title,
+                    todo,
+                    card
+                  )
+                "
+              >
+                <mat-icon>delete</mat-icon>
+                <span>Delete Card</span>
+              </button>
+            </mat-menu>
+          </div>
+        </mat-card>
+      </div>
+      <div class="new-card-preview">
+        <button
+          mat-flat-button
+          color="accent"
+          class="new-card-preview-button"
+          (click)="openCardDialog('New Card', todo, null)"
+        >
+          <mat-icon>add</mat-icon>
+          <span *ngIf="todo.cards.length === 0"> Add card </span>
+          <span *ngIf="todo.cards.length > 0"> Add another card </span>
+        </button>
+      </div>
+    </mat-card>
+    <div class="new-todo-preview" (click)="openTodoDialog('New Todo', null)">
+      <mat-icon>add</mat-icon>
+      <span>New Todo</span>
+    </div>
+  </div>
+</app-container>
+<ng-template #deleteDialog let-data>
+  <h1 mat-dialog-title>{{ data.dialogTitle }}</h1>
+  <div mat-dialog-content>
+    <p>Are you sure?</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-flat-button (click)="onDeleteCancelClick()" cdkFocusInitial>
+      Cancel
+    </button>
+    <button
+      mat-flat-button
+      color="accent"
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+<ng-template #addEditDialog let-data>
+  <h1 mat-dialog-title>{{ data.dialogTitle }}</h1>
+  <div mat-dialog-content>
+    <p>Please enter {{ data.type }} name.</p>
+    <mat-form-field>
+      <mat-label>{{ data.type }} Name</mat-label>
+      <input
+        cdkFocusInitial
+        *ngIf="data.type !== 'Card'"
+        matInput
+        [(ngModel)]="data.title"
+      />
+      <textarea
+        cdkFocusInitial
+        matInput
+        [(ngModel)]="data.title"
+        *ngIf="data.type === 'Card'"
+      ></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onAddEditCancelClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.title" cdkFocusInitial>
+      Ok
+    </button>
+  </div>
+</ng-template>
