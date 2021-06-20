@@ -1,0 +1,94 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="register-card">
+  <form
+    [formGroup]="formData"
+    autocomplete="off"
+    (ngSubmit)="onClickSubmit(formData.value)"
+  >
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="register-card-body">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              placeholder="Username"
+              type="text"
+              formControlName="userName"
+            />
+            <mat-error *ngIf="formData.get('userName')?.invalid"
+              >Username is already in used
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Email"
+              type="email"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="formData.get('email')?.invalid"
+              >Email is already in used
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Password"
+              type="password"
+              formControlName="password"
+              autocomplete="off"
+            />
+            <mat-error *ngIf="formData.get('password')?.errors?.minlength"
+              >Password minimum 8 characters
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input
+              matInput
+              placeholder="Confirm Password"
+              type="password"
+              formControlName="confirmPassword"
+            />
+            <mat-error
+              *ngIf="formData.get('confirmPassword')?.errors?.minlength"
+              >Password minimum 8 characters
+            </mat-error>
+            <mat-error *ngIf="matchPassword(formData.value)"
+              >Password does not match
+            </mat-error>
+          </mat-form-field>
+        </p>
+      </mat-card-content>
+      <mat-card-actions class="register-card-footer">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="
+            isDisabled || formData.invalid || matchPassword(formData.value)
+          "
+        >
+          Register
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <div class="login-link">
+    Already have an account
+    <a mat-button color="accent" routerLink="/login">Login</a>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<mat-toolbar color="primary" class="sticky mat-elevation-z8">
+  <a mat-flat-button color="primary" routerLink="/">{{ title }}</a>
+  <ng-container *ngIf="isLogin">
+    <a mat-flat-button color="primary" routerLink="/dashboard" *ngIf="isAdmin()"
+      >Dashboard</a
+    >
+    <a
+      mat-flat-button
+      color="primary"
+      routerLink="/dashboard/nurse"
+      *ngIf="isAdmin() || isNurse()"
+      >Nurse</a
+    >
+    <a
+      mat-flat-button
+      color="primary"
+      routerLink="/dashboard/patient"
+      *ngIf="isAdmin() || isPatient()"
+      >Patient</a
+    >
+    <a
+      mat-flat-button
+      color="primary"
+      routerLink="/dashboard/doctor"
+      *ngIf="isAdmin() || isDoctor()"
+      >Doctor</a
+    >
+    <a
+      mat-flat-button
+      color="primary"
+      routerLink="/dashboard/admin"
+      *ngIf="isAdmin()"
+      >Admin</a
+    >
+    <span class="spacer"></span>
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <app-avatar [username]="username" [size]="30"></app-avatar>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button routerLink="/logout" mat-menu-item>
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </ng-container>
+  <ng-container *ngIf="!isLogin">
+    <span class="spacer"></span>
+    <button routerLink="/login" mat-button aria-label="Login icon">
+      <mat-icon>login</mat-icon>
+      <span class="login-label">Login</span>
+    </button>
+  </ng-container>
+</mat-toolbar>
+<div class="content">
+  <ng-content></ng-content>
+</div>

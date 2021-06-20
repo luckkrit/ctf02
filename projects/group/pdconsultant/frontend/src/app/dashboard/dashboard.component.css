@@ -1,0 +1,83 @@
+.board-preview,
+.new-board-preview {
+  width: 150px;
+  margin: 5px;
+  height: 50px;
+  background-color: lightslategrey;
+  color: whitesmoke;
+}
+
+.new-board-preview {
+  border-style: dashed;
+  border-color: lightslategrey;
+  border-width: 3px;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 13px;
+}
+
+.new-board-preview:hover {
+  background-color: lightslategrey;
+  color: whitesmoke;
+}
+
+.board-preview:hover {
+  background-color: lightgray;
+  color: whitesmoke;
+}
+
+.board-groups {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.content{
+  padding: 0 10px;
+}
+.sidenav {
+  display: flex;
+  align-items: center;
+}
+.queue{
+  display: block;
+  padding-left: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.queue-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.queue-title {
+  display: flex;
+  padding-left: 10px;
+  flex: 1;
+  font-size: 1rem;
+}
+
+.queue-body {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
+  padding: 5px;
+  background-color:rgba(63,81,181,.15);
+  color: #3f51b5;
+}
+
+.queue:hover,.queue-body:hover{
+  background: rgba(63,81,181,.3);
+}
+
+.queue-expand-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.queue-footer {
+  display: flex;
+  justify-content: flex-end;
+}

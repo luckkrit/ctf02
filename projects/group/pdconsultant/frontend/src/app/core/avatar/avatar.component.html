@@ -1,0 +1,21 @@
+<div
+  class="circle"
+  [style]="{
+    'background-color': circleColor,
+    width: size + 'px',
+    height: size + 'px'
+  }"
+>
+  <img
+    *ngIf="photoUrl"
+    src="{{ photoUrl }}"
+    [style]="{ width: size + 'px', height: size + 'px' }"
+  />
+
+  <div *ngIf="initials" class="text">
+    {{ createInitials() }}
+  </div>
+  <div *ngIf="username" class="text">
+    {{ createUsername() }}
+  </div>
+</div>

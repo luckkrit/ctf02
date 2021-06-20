@@ -1,0 +1,64 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="isLoading"
+  class="sticky"
+></mat-progress-bar>
+<app-sub-menu>
+  <h2>ผู้ใช้งาน : {{ user.profile.fullName }}</h2>
+</app-sub-menu>
+
+<app-container>
+  <!--  <mat-sidenav-container *ngIf="isModerator()" autosize>-->
+  <!--    <mat-sidenav  mode="side" [fixedTopGap]="150" [fixedInViewport]="true" [@sideNavOpenClose]="isOpen" opened>-->
+
+  <!--      <button mat-icon-button color="accent" aria-label="Sidenav Menu"  (click)="toggle()">-->
+  <!--        <mat-icon>menu</mat-icon>-->
+  <!--      </button>-->
+  <!--      <span style="font-weight: bold; font-size: 1rem;" *ngIf="isOpen" [@menuTitleVisible]>-->
+  <!--        PD Consultant-->
+  <!--      </span>-->
+  <!--      <cdk-accordion multi="false">-->
+  <!--        <cdk-accordion-item-->
+  <!--          #accordionItem="cdkAccordionItem"-->
+  <!--          class="queue">-->
+  <!--          <div class="queue-header"-->
+  <!--               (click)="showQueue(accordionItem)"-->
+  <!--          >-->
+  <!--            <app-avatar [username]="'Admin'" [size]="30" ></app-avatar>-->
+  <!--            <span class="queue-title" *ngIf="isOpen">A001</span>-->
+  <!--            <div class="queue-expand-toggle" *ngIf="isOpen">-->
+  <!--              <mat-icon *ngIf="!accordionItem.expanded">-->
+  <!--                expand_more-->
+  <!--              </mat-icon>-->
+  <!--              <mat-icon *ngIf="accordionItem.expanded">-->
+  <!--                expand_less-->
+  <!--              </mat-icon>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--          <div class="queue-body" *ngIf="isOpen" [style.display]="accordionItem.expanded? '': 'none'">-->
+  <!--            <div style="padding: 5px 0;">Admin</div>-->
+  <!--            <div style="padding: 5px 0;">ปวดหัว</div>-->
+  <!--            <mat-form-field appearance="outline">-->
+  <!--              <mat-label>รายชื่อหมอ</mat-label>-->
+  <!--              <mat-select [formControl]="pokemonControl">-->
+  <!--                <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"-->
+  <!--                              [disabled]="group.disabled">-->
+  <!--                  <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">-->
+  <!--                    {{pokemon.viewValue}}-->
+  <!--                  </mat-option>-->
+  <!--                </mat-optgroup>-->
+  <!--              </mat-select>-->
+  <!--            </mat-form-field>-->
+  <!--            <div class="queue-footer">-->
+  <!--              <button mat-flat-button color="accent">ส่งตัว</button>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </cdk-accordion-item>-->
+  <!--      </cdk-accordion>-->
+  <!--    </mat-sidenav>-->
+  <!--    <mat-sidenav-content [@containerOpenClose]="isOpen ? 'open' : 'closed'" class="content">-->
+  <!--      <h2>รายชื่อคุณหมอ</h2>-->
+  <!--    </mat-sidenav-content>-->
+  <!--  </mat-sidenav-container>-->
+  <ng-container *ngIf="isAdmin()">Hello Admin</ng-container>
+</app-container>

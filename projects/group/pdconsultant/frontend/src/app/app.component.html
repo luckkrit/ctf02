@@ -1,0 +1,40 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<div *ngIf="isUserLoggedIn$ | async">
+  <app-toolbar
+    [title]="title"
+    [username]="usernameLoggedIn$ | async"
+    [isLogin]="isUserLoggedIn$ | async"
+  >
+    <ng-container *ngTemplateOutlet="template"></ng-container>
+  </app-toolbar>
+</div>
+
+<div *ngIf="!(isUserLoggedIn$ | async)">
+  <app-toolbar
+    [title]="title"
+    [username]="usernameLoggedIn$ | async"
+    [isLogin]="isUserLoggedIn$ | async"
+  >
+    <ng-container *ngTemplateOutlet="template"></ng-container>
+  </app-toolbar>
+</div>
+
+<ng-template #template>
+  <router-outlet></router-outlet>
+</ng-template>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

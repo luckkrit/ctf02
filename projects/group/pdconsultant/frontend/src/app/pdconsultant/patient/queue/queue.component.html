@@ -1,0 +1,82 @@
+<app-container>
+  <mat-horizontal-stepper
+    linear
+    #stepper
+    (selectionChange)="onStepperChange($event)"
+  >
+    <mat-step [stepControl]="symptomFormGroup" [editable]="true">
+      <form [formGroup]="symptomFormGroup">
+        <ng-template matStepLabel>หัวข้อคำแนะนำ</ng-template>
+        <h2>โปรดเลือกหัวข้อที่ต้องการคำแนะนำ</h2>
+        <mat-selection-list
+          formControlName="symptom"
+          (selectionChange)="onSelectionChanges($event)"
+        >
+          <mat-list-option
+            [value]="symptom"
+            *ngFor="let symptom of symptoms$ | async"
+          >
+            {{ symptom.title }}
+          </mat-list-option>
+        </mat-selection-list>
+        <div>
+          <button color="accent" mat-button matStepperNext>ต่อไป</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step
+      [stepControl]="doctorFormGroup"
+      [editable]="true"
+      [optional]="true"
+    >
+      <form [formGroup]="doctorFormGroup">
+        <ng-template matStepLabel>ระบุแพทย์ (ถ้ามี)</ng-template>
+        <h2>โปรดเลือกแพทย์ที่ต้องการนัดพบ</h2>
+        <section>
+          <mat-checkbox [checked]="isNotChooseDoctor" (change)="toggleChooseDoctor($event)"
+          >ไม่เลือกแพทย์
+          </mat-checkbox>
+        </section>
+        <mat-selection-list
+          formControlName="doctor"
+          (selectionChange)="onSelectDoctorChanges($event)"
+        >
+          <ng-container *ngFor="let specialty of specialties$ | async">
+            <div mat-subheader *ngIf="symptom?.specialty?.id === specialty.id">
+              {{ specialty.title }}
+            </div>
+            <ng-container *ngIf="symptom?.specialty?.id === specialty.id">
+              <mat-list-option
+                [value]="doctor"
+                *ngFor="let doctor of specialty.doctors"
+              >
+                {{ doctor.user.profile.name }}
+              </mat-list-option>
+            </ng-container>
+          </ng-container>
+        </mat-selection-list>
+        <div>
+          <button mat-button matStepperPrevious>ย้อนกลับ</button>
+          <button color="accent" mat-button matStepperNext>ต่อไป</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>ยืนยัน</ng-template>
+      <h2>ยืนยันนัดหมาย</h2>
+      <h3>หัวข้อที่ต้องการคำแนะนำ</h3>
+      <h4>{{ symptom ? symptom.title : "" }}</h4>
+      <ng-container *ngIf="!doctorFormGroup.disabled">
+        <h3>แพทย์ที่ต้องการนัดพบ</h3>
+        <h4>{{ doctor ? doctor.user.profile.name : "" }}</h4>
+      </ng-container>
+      <div>
+        <button mat-flat-button color="accent" (click)="addQueue()">ยืนยันนัดหมาย</button>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>ย้อนกลับ</button>
+        <button mat-button (click)="stepper.reset();reset()">เริ่มใหม่</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</app-container>
