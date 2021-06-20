@@ -6,6 +6,7 @@ import com.k9.backend.dtos.RegisterDTO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "admin", indexes = @Index(columnList = "user_id, fullName,"))
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
