@@ -36,7 +36,7 @@ public class Symptom {
     @ToString.Exclude
     private Specialty specialty;
 
-    @OneToMany(mappedBy = "symptom", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "symptom", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
