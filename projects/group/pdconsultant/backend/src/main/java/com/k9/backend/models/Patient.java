@@ -43,7 +43,7 @@ public class Patient {
     @ToString.Exclude
     private User user;
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference

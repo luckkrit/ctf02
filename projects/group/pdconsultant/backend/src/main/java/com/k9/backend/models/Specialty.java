@@ -41,7 +41,7 @@ public class Specialty {
     @JsonBackReference
     private Symptom symptom;
 
-    @OneToMany(mappedBy = "specialty", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "specialty", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference

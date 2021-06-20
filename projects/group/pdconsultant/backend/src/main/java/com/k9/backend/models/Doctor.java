@@ -47,7 +47,7 @@ public class Doctor {
     @ToString.Exclude
     private Specialty specialty;
 
-    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", fetch = FetchType.EAGER)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Set<Appointment> appointments;
